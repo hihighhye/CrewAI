@@ -1,0 +1,11 @@
+env/
+crewai/
+.env
+.cache
+.streamlit
+__pycache__/
+*.db
+review_data.ipynb
+NERLabellingAgent.ipynb
+data/
+target/
