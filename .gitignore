@@ -10,5 +10,4 @@ review_data.ipynb
 NERLabellingAgent.ipynb
 data/
 target/
-credentials.json
-wordsagent-f6f858f2293d.json
+secrets/
