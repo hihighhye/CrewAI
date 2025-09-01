@@ -2,14 +2,14 @@ import openai
 import os
 from dotenv import load_dotenv
 import re
-from wordsfinder_crew_utils import WordsFinderCrew
+from wordsfinder_crew import WordsFinderCrew
 from googlesheets_utils import GooglesheetUtils
 
 
 def str_to_list(words):
     words = words.strip()
-    words = re.sub(r'\s{2,}', ' ', words)
-    word_list = words.split(",")
+    words = re.sub(r'[ \t\r\f\v]{2,}', ' ', words)
+    word_list = re.split(r'[,\n]+', words)
     word_list = [wd.strip() for wd in word_list]
     return word_list
 
@@ -22,9 +22,13 @@ googlesheet = GooglesheetUtils(spreadsheet_id='1hFNuCdmySJodQM5qsR5FJ6pkPLQc5DbX
 [found_words] = googlesheet.get_columns('Behave!B5:B')
 
 input_words = """
-    unnerve,
-    banana,
-    kiwi
+    unorthodox
+    Irgun,
+    Zionist
+    extortion,
+    captive
+    score
+    wreak havoc
 """
 
 input_words = str_to_list(input_words)
