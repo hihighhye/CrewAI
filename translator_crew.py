@@ -5,8 +5,8 @@ import json
 
 
 class Phrase(BaseModel):
-        text: str
-        translation: str
+    english: str
+    native: str
 
 class TranslatorCrew:
     def __init__(self, native_lang):   
@@ -17,7 +17,7 @@ class TranslatorCrew:
             goal="Translate given English sentence or phrase in given native language.",
             backstory="""
                 You are translating English sentences or phrases for people studying English.
-                Return the given sentence and its translation.
+                Return the given English sentence and its translation in native language.
             """,
             verbose=True,
             allow_delegation=False,

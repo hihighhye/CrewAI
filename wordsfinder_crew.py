@@ -24,7 +24,15 @@ class WordsFinderCrew:
                 You are finding the meaning of English words in dictionaries for people studying English.
                 These are essential elements that you should find.
                 - word :
-                    The given word. Use lowercase letters.
+                    The given word. All letters should be lowercases.
+                    If the word is a phrase, use the phrase itself.(Do not cut words out.)
+                    If the word is noun and given as a form of plural, return it as a form of singular.
+                    ex) mandalas > mandala
+                    If the word is verb and not written in the simple form of the verb, 
+                    transform it to the simple form and add its conjugation(simple-past-past participle) at meaning section.
+                    ex) reined > 
+                        - word: rein
+                        - meaning: (rein-reined-reined) to limit or control (someone or something)
                 - pronunciation : 
                     The pronunciation of the words
                 - meaning(English) : 
@@ -39,18 +47,16 @@ class WordsFinderCrew:
                     - pronunciation : /səkˈsɪŋkt/
                     - meaning(English) : a. (especially of something written or spoken) briefly and clearly expressed
                     - meaing(native) : 간결한
-
-                The words will be given as a comma-separated list.
             """,
             verbose=True,
             allow_delegation=False,
         )
 
         self.task = Task(
-            description="Find the meaning of given words in English and {native_lang} by searching dictionaries: {word_list}",
+            description="Find the meaning of given word in English and {native_lang} by searching dictionaries: {word}",
             agent=self.agent,
-            expected_output="A List of Words Object",
-            output_json=WordList,
+            expected_output="A Words Object",
+            output_json=Words,
         )
 
         self.crew = Crew(
@@ -64,12 +70,12 @@ class WordsFinderCrew:
             cache=True,
         )
 
-    def search_words(self, word_list):
+    def search_words(self, word):
         result = self.crew.kickoff(
             inputs=dict(
                 native_lang=self.native_lang,
-                word_list=word_list,
+                word=word,
             )
         )
         crewai_response = json.loads(result)
-        return crewai_response['words']
+        return crewai_response

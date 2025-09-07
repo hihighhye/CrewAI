@@ -1,5 +1,3 @@
-env/
-crewai/
 new_crewai/
 .env
 .cache
@@ -7,7 +5,7 @@ new_crewai/
 __pycache__/
 *.db
 review_data.ipynb
-NERLabellingAgent.ipynb
 data/
 target/
 secrets/
+db/

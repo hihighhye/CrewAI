@@ -4,13 +4,29 @@ from google.oauth2 import service_account
 
 
 class GooglesheetUtils:
-    def __init__(self, spreadsheet_id) -> None:
+    def __init__(self, spreadsheet_id="") -> None:
         self.spreadsheet_id = spreadsheet_id
         self.credentials = service_account.Credentials.from_service_account_file(
             './secrets/wordsagent-f6f858f2293d.json',
             scopes = ['https://www.googleapis.com/auth/spreadsheets']
         )
         self.service = discovery.build('sheets', 'v4', credentials=self.credentials)
+
+    def create_sheet(self, title):
+        try:
+            service = discovery.build("sheets", "v4", credentials=self.credentials)
+            spreadsheet = {"properties": {"title": title}}
+            spreadsheet = (
+                service.spreadsheets()
+                .create(body=spreadsheet, fields="spreadsheetId")
+                .execute()
+            )
+            self.spreadsheet_id = spreadsheet.get('spreadsheetId')
+            print(f"Spreadsheet ID: {(spreadsheet.get('spreadsheetId'))}")
+            return spreadsheet.get("spreadsheetId")
+        except errors.HttpError as error:
+            print(f"An error occurred: {error}")
+            return error
 
     def get_columns(self, range_name):
         try:

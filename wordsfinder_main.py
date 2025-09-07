@@ -22,23 +22,24 @@ googlesheet = GooglesheetUtils(spreadsheet_id='1hFNuCdmySJodQM5qsR5FJ6pkPLQc5DbX
 [found_words] = googlesheet.get_columns('Behave!B5:B')
 
 input_words = """
-    unorthodox
-    Irgun,
-    Zionist
-    extortion,
-    captive
-    score
-    wreak havoc
+    of all stripes
 """
+
+cat1 = "Behave"
+cat2 = "Chapter 2"
 
 input_words = str_to_list(input_words)
 print("input_words:", input_words)
 
-new_words = ", ".join([w for w in input_words if w not in found_words])
+new_words = [w for w in input_words if w not in found_words]
 print("new_words:", new_words)
 
-if new_words:
-    searched_words = crew.search_words(new_words)
+result = []
+for word in new_words:
+    try:
+        searched_word = crew.search_words(word)
+        result.append([cat1, cat2, searched_word['word'], searched_word['pronunciation'], searched_word['meaning_eng'], searched_word['meaning_native']])
+    except Exception:
+        result.append([cat1, cat2, word, '',"Cannot find the meaning.", ''])
 
-    values = [[word['word'], word['meaning_eng'], word['meaning_native']] for word in searched_words]
-    googlesheet.append_data('Behave!B4', values)
+googlesheet.append_data('Behave!B4', result)
