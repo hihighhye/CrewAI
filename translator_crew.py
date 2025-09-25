@@ -13,9 +13,10 @@ class TranslatorCrew:
         self.native_lang = native_lang
 
         self.agent = Agent(
-            role="Translator",
+            role="Interpreter",
             goal="Translate given English sentence or phrase in given native language.",
             backstory="""
+                You are a decent interpreter.
                 You are translating English sentences or phrases for people studying English.
                 Return the given English sentence and its translation in native language.
             """,

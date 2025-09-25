@@ -28,7 +28,7 @@ class GooglesheetUtils:
             print(f"An error occurred: {error}")
             return error
 
-    def get_columns(self, range_name):
+    def get_data(self, range_name, majorDimension='ROWS'):
         try:
             service = discovery.build("sheets", "v4", credentials=self.credentials)
 
@@ -38,7 +38,7 @@ class GooglesheetUtils:
                 .get(
                     spreadsheetId=self.spreadsheet_id, 
                     range=range_name,
-                    majorDimension='COLUMNS'
+                    majorDimension=majorDimension,
                 )
             )
 

@@ -19,10 +19,50 @@ os.environ['OPENAI_MODEL_NAME'] = 'gpt-4o-mini'
 crew = WordsFinderCrew(native_lang="Korean")
 
 googlesheet = GooglesheetUtils(spreadsheet_id='1hFNuCdmySJodQM5qsR5FJ6pkPLQc5DbXwP7h74pwTs8')
-[found_words] = googlesheet.get_columns('Behave!B5:B')
+[found_words] = googlesheet.get_data('Behave!D5:D', majorDimension='COLUMNS')
 
 input_words = """
-    of all stripes
+    rudimentary
+    pituitary
+    henceforth
+    suffice
+    satiation
+    downright
+    norm
+    violation
+    besting
+    specter
+    demoted
+    gloating
+    resentment
+    invidiousness
+    paycheck
+    habituate
+    discrepancy
+    bummer
+    namely
+    dwarf
+    quaint
+    beehive
+    privation
+    spasm
+    deluge
+    contingency
+    monetary
+    afterthought
+    sated
+    rundown
+    inundate
+    impending
+    chute
+    anthropology
+    intermittent
+    blip
+    astronomical
+    pickling
+    propensity
+    calibrated
+    agitating
 """
 
 cat1 = "Behave"
